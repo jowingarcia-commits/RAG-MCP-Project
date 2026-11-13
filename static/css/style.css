@@ -1,0 +1,92 @@
+:root {
+  --paper: #f2f4f6;
+  --panel: #ffffff;
+  --ink: #16212b;
+  --muted: #5d6b78;
+  --line: #d6dde3;
+  --accent: #0e6b70;
+  --accent-ink: #ffffff;
+  --user: #dff0ef;
+  --trace-bg: #fdf3d8;
+  --trace-ink: #6b4a00;
+  --danger: #a3321f;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #12181e; --panel: #1a232b; --ink: #e6ecf0; --muted: #94a3af;
+    --line: #2c3945; --accent: #4fb3b8; --accent-ink: #0b1317; --user: #1d3a3c;
+    --trace-bg: #3a2f10; --trace-ink: #f0d58a; --danger: #ff8a75;
+  }
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  background: var(--paper); color: var(--ink);
+  font: 16px/1.5 ui-sans-serif, "Segoe UI", system-ui, sans-serif;
+}
+.shell { display: grid; grid-template-columns: 290px 1fr; height: 100%; }
+.side {
+  padding: 28px 22px; border-right: 1px solid var(--line); background: var(--panel);
+  display: flex; flex-direction: column; gap: 22px; overflow-y: auto;
+}
+h1 { font-size: 1.5rem; margin: 0; letter-spacing: -0.01em; }
+h2 { font-size: 0.95rem; margin: 0 0 8px; font-weight: 650; }
+.lede { margin: 6px 0 0; color: var(--muted); font-size: 0.95rem; }
+.files { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.files li { display: flex; justify-content: space-between; gap: 8px; font-size: 0.92rem; }
+.files .size { color: var(--muted); }
+.pick {
+  display: block; padding: 12px; border: 1px dashed var(--line); border-radius: 8px;
+  color: var(--muted); cursor: pointer; font-size: 0.92rem;
+}
+.pick:hover, input:focus-visible + .pick { border-color: var(--accent); color: var(--ink); }
+#upload-status { margin: 8px 0 0; font-size: 0.9rem; color: var(--muted); min-height: 1.4em; }
+#upload-status.error { color: var(--danger); }
+.quiet {
+  margin-top: auto; background: none; border: 1px solid var(--line); color: var(--ink);
+  padding: 9px 12px; border-radius: 8px; cursor: pointer; font: inherit;
+}
+.quiet:hover { border-color: var(--accent); }
+
+.chat { display: flex; flex-direction: column; min-width: 0; height: 100%; }
+.log { flex: 1; overflow-y: auto; padding: 28px clamp(16px, 6vw, 72px); display: grid; gap: 18px; align-content: start; }
+.msg { max-width: 760px; }
+.msg.user { justify-self: end; background: #1a232300; padding: 10px 14px; border-radius: 12px; }
+.msg.error { color: var(--danger); }
+.msg p { margin: 0 0 10px; }
+.msg p:last-child { margin-bottom: 0; }
+.msg ul { margin: 0 0 10px; padding-left: 20px; }
+code, pre { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.88rem; }
+code { background: var(--paper); padding: 1px 5px; border-radius: 4px; }
+pre { background: var(--paper); padding: 12px; border-radius: 8px; overflow-x: auto; }
+.tablewrap { overflow-x: auto; margin: 0 0 10px; }
+table { border-collapse: collapse; font-size: 0.92rem; }
+th, td { border-bottom: 1px solid var(--line); padding: 6px 12px; text-align: left; white-space: nowrap; }
+th { font-weight: 650; }
+details.trace { margin-top: 8px; font-size: 0.85rem; }
+details.trace summary { cursor: pointer; color: var(--trace-ink); background: var(--trace-bg); display: inline-block; padding: 2px 10px; border-radius: 999px; }
+details.trace pre { margin-top: 6px; }
+.thinking { color: var(--muted); }
+
+.suggestions { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 clamp(16px, 6vw, 72px) 10px; }
+.suggestions button {
+  font: inherit; font-size: 0.9rem; background: var(--panel); color: var(--ink);
+  border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; cursor: pointer;
+}
+.suggestions button:hover { border-color: var(--accent); }
+.composer { display: flex; gap: 10px; padding: 14px clamp(16px, 6vw, 72px) 22px; border-top: 1px solid var(--line); background: var(--panel); }
+.composer textarea {
+  flex: 1; resize: none; font: inherit; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; max-height: 160px;
+}
+.composer button {
+  font: inherit; font-weight: 600; background: var(--accent); color: var(--accent-ink);
+  border: 0; border-radius: 10px; padding: 0 22px; cursor: pointer;
+}
+.composer button:disabled { opacity: 0.5; cursor: wait; }
+button:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@media (max-width: 760px) {
+  .shell { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+  .side { border-right: 0; border-bottom: 1px solid var(--line); padding: 16px; gap: 14px; max-height: 40vh; }
+}
